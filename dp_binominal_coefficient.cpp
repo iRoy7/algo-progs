@@ -4,13 +4,17 @@
 int n, k;
 int dt[MAXIS + 1][MAXIS+1];
 inline int min(int a, int b) { return (a > b) ? b : a; }
-inline int bin(int n, int k)
+
+static int 
+bin(int n, int k)
 {
 	if (k == 0 || n == k) return 1;
 	else
 		return  bin(n - 1, k - 1) + bin(n - 1, k);
 }
-inline int binDp(int n, int k)
+
+static int
+binDp(int n, int k)
 {
 	if (k == 0 || n == k) return 1;
 	int i, j;
@@ -24,6 +28,7 @@ inline int binDp(int n, int k)
 	}
 	return dt[n][k];
 }
+
 int main()
 {
 	clock_t start_p, end_p;
