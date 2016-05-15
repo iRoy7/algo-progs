@@ -75,21 +75,26 @@ int main()
 	for (int i = 1; i <= n; i++)
 		printf("%d ", a[i]);
 	printf("\n");
+
 	// solve 1: find a key via sequential search
 	int ret1 = seqsearch(n, key);
 	printf("1.find a key = %d\n", ret1);
+
 	// solve 2: sum of items
 	int ret2 = sum();
 	printf("2.sum of items = %d\n", ret2);
+
 	// solve: qsort
 	qsort(1, n);
 	printf("Sorted items:\n");
 	for (int i = 1; i <= n; i++)
 		printf("%d ", a[i]);
 	printf("\n");
+
 	// solve 3: find a key via binary search
 	int ret3 = binsearch(n, key);
 	printf("3.find a key = %d\n", ret3);
+
 	// solve 4: find a key via binary search based on recursion
 	int ret4 = location_recursion(1, n);
 	printf("4.find a key = %d\n", ret4);
