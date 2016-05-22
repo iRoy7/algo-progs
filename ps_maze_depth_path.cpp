@@ -33,7 +33,7 @@ struct Queue q;
 inline bool
 is_safe(int y, int x)
 {
-	return (y > 0 && y < H && x > 0 && x < W);
+	return (y >= 0 && y < H && x >= 0 && x < W);
 }
 
 static int 
