@@ -1,9 +1,10 @@
-// Number Magic from TOPCODER
+// Number Magic(P173) from TOPCODER
 // inputs:
 // YNYY
 // YNNN
 // NNNN
 // NYNY
+//====================
 // outputs:
 // 5 | 8 | 16 | 1 | 11
 
