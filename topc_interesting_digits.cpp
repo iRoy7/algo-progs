@@ -1,73 +1,57 @@
-// Find the palindrome length from TOPCORDER
-// aabbcc|_|
+// Interesting digits from TOPCODER
+// constraints:
+// base: 3 <= base <= 30
+// max digits: 3
 // 21 * 2 = 42
 // 4+2 % 2 = 0
 
 #include <stdio.h>
-#define SZ_STR 110
-
-static int
-find_palind_length(char *str, int len)
-{
-	int i;
-	int p_len = len;
-	int bl = len; // bl: base line
-	bool first = true;
-
-	for (i = 0; (i <= bl) && (i < len); i++)
-	{
-		if (first && str[i] != str[bl])
-		{
-			bl -= 1;
-			i -= 1;
-			first = false;
-			continue;
-		}
-		if (str[i] != str[bl])
-		{
-			//printf("D2: i = %d, bl = %d\n", i, bl);
-			p_len += 1;
-		}
-		else
-		{
-			bl -= 1;
-		}
-	}
-
-	return p_len;
-}
-
-static void
-clear_buf(char *str)
-{
-	for (int i = 0; i < SZ_STR; i++)
-		str[i] = 0;
-}
 
 int main()
 {
-	int T;
-	static char INSTR[SZ_STR];
+	int T, base, n;
+	int k1, k2, k3;
 
 	setbuf(stdout, NULL);
 	scanf("%d", &T);
 
-	while (T--) {
-		// inputs
-		scanf("%s", INSTR);
-		
-		size_t cur_len;
-		for (cur_len = 0; INSTR[cur_len]; cur_len++);
-		
-		// find the length of palindrome
-		size_t len = 0;
-		len = find_palind_length(INSTR, cur_len);
-
-		// outputs
-		printf("%d\n", len);
-		
-		// clear buffer
-		clear_buf(INSTR);
+	while (T--) 
+	{
+		scanf("%d", &base);
+#if 0 // approach 1
+		for (n = 2; n < base; n++)
+		{
+			bool ok = true;
+			for (k1 = 0; k1 < base; k1++)
+			{
+				for (k2 = 0; k2 < base; k2++)
+				{
+					for (k3 = 0; k3 < base; k3++)
+					{
+						if ((k1 + k2*base + k3*base*base) % n == 0
+							&& (k1 + k2 + k3) % n != 0)
+						{
+							ok = false;
+							break;
+						}
+					}
+					if (!ok) break;
+				}
+				if (!ok) break;
+			}
+			if (ok) 
+			{
+				printf("%d ", n);
+			}
+		}
+		printf("\n");
+#else
+		for (n = 2; n < base; n++)
+			if ((base - 1) % n == 0)
+				printf("%d ", n);
+		printf("\n");
+#endif
 	}
+
 	return 0;
 }
