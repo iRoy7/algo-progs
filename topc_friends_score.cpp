@@ -1,4 +1,37 @@
 // Friends score from TOPCORDER
+/* 
+input:
+4
+5
+NYNNN
+YNYNN
+NYNYN
+NNYNY
+NNNYN
+3
+NNN
+NNN
+NNN
+3
+NYY
+YNY
+YYN
+10
+NNNNYNNNNN
+NNNNYNYYNN
+NNNYYYNNNN
+NNYNNNNNNN
+YYYNNNNNNY
+NNYNNNNNYN
+NYNNNNNYNN
+NYNNNNYNNN
+NNNNNYNNNN
+NNNNYNNNNN
+
+====================
+output:
+4 | 0 | 2 | 8
+*/
 
 #include <stdio.h>
 #define MAX_F 51
