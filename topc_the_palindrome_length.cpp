@@ -5,7 +5,7 @@
 #define SZ_STR 110
 
 static int
-find_palind_length(char *str, int len)
+find_palindr_length(char *str, int len)
 {
 	int i;
 	int p_len = len;
@@ -59,7 +59,7 @@ int main()
 		
 		// find the length of palindrome
 		size_t len = 0;
-		len = find_palind_length(INSTR, cur_len);
+		len = find_palindr_length(INSTR, cur_len);
 
 		// outputs
 		printf("%d\n", len);
