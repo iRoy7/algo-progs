@@ -1,4 +1,5 @@
 /*
+input:
 5
 1
 N
@@ -26,9 +27,9 @@ NNNN
 NNNN
 NNNN
 NNNN
-
+===================
 outputs:
-1 5 17 8 4
+1 | 5 | 17 | 8 | 4
 */
 #include <stdio.h>
 #define SZ_N 51
