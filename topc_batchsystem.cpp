@@ -1,4 +1,5 @@
 /* 
+input:
 3
 4
 400 100 100 100
@@ -16,7 +17,7 @@ Warrick
 Haratio Caine
 horatio caine
 YEAAAAAAH
-
+========================
 outputs:
 3 1 2 0
 0 1 2
