@@ -1,4 +1,16 @@
-// Cryptography from TOPCORDER
+// Cryptography(P93) from TOPCORDER
+/* 
+input:
+4
+1 2 3
+1 3 2 1 1 3
+1000 999 998 997 996 995
+1 1 1 1
+========================
+ouput:
+12 | 36 | 986074810223904000 | 2
+*/
+
 #include <stdio.h>
 #define SZ_C 51
 
