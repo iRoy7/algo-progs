@@ -43,17 +43,20 @@ maximum_earnings()
 {
 	int money = init_invst;
 	int month = for_mth;
+	
+	// get the number of corporation by using ' '
 	int corp = 1;
 	char *s = stocks[0];
 	while (*s++) if (*s == ' ') corp++;
-
 	//printf("D1: corp = %d\n", corp);
 
-	int price[SZ_M][SZ_C];
+	int prices[SZ_M][SZ_C];
 	double max = 0, profit = 0;
 	double proportion[SZ_M] = { 0 };
 	bool buy[SZ_M] = { false };
 
+	// Parsing the prices
+	// prices[month][corp1]..prices[month[corp2]..prices[month][corp3]..
 	int i, j;
 	for (i = 0; i < month; i++)
 	{
@@ -87,7 +90,7 @@ maximum_earnings()
 			}
 		}
 	}
-
+	// find the proper month to buy stocks
 	for (i = month - 2; 0 <= i; i--)
 	{
 		for (j = 0; j < corp; j++)
@@ -102,7 +105,7 @@ maximum_earnings()
 			}
 		}
 	}
-
+	// calculate profit
 	for (i = 0; i < month; i++)
 	{
 		if (buy[i])
