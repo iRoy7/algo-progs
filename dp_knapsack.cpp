@@ -10,81 +10,127 @@
 // V(i) : 1 2 3
 // output :
 // 5
+// Knapsack problem solutions
+// (1)Recursion
+// (2)Recursion with Memoization
 
 #include <stdio.h>
 #define SZ_N 51
+#define MAX_W 101
 
-int ITW[SZ_N];
-int ITV[SZ_N];
-int DT[SZ_N][10 * SZ_N];
+int item_w[SZ_N];
+int item_v[SZ_N];
+int DT[SZ_N][MAX_W];
 
-int N, W;
+int N, K;
+int max_val;
+
 inline int
 max(int a, int b) { return (a > b) ? a : b; }
-
-static int 
-packing(int i, int cur_w)
-{
-	int &ret = DT[i][cur_w];
-	if (ret != -1) return ret;
-
-	// base cases;
-	if (i == N + 1) return ret = 0;
-	else if (cur_w + ITW[i] > W) return ret = packing(i + 1, cur_w);
-
-	return ret = max(packing(i + 1, cur_w), packing(i + 1, cur_w + ITW[i]) + ITV[i]);
-}
-
-static int
-packing2(int i, int r)
-{
-	int &ret = DT[i][r];
-	if (ret != -1) return ret;
-
-	// base cases;
-	if (i == N + 1) return ret = 0;
-	else if (r < ITW[i]) return ret = packing2(i + 1, r);
-
-	return ret = max(packing2(i + 1, r), packing2(i + 1, r - ITW[i]) + ITV[i]);
-}
 
 static void
 clear_buf()
 {
-	for (int i = 0; i < SZ_N; i++)
-		ITW[i] = ITV[i] = 0;
+	int i, j;
+	for (i = 0; i < SZ_N; i++)
+		item_w[i] = item_v[i] = 0;
+}
+
+// recursion without memoization
+static void
+recur_only(int idx, int total_weight, int total_value)
+{
+	if (idx > N)
+	{
+		if (total_value >= max_val)
+			max_val = total_value;
+		return;
+	}
+	
+	if (total_weight > K) return;
+
+	recur_only(idx + 1, total_weight, total_value);
+	recur_only(idx + 1, total_weight + item_w[idx], total_value + item_v[idx]);
+}
+
+// from zero weight..after selection, total_weight+item_w[idx]
+static int
+recur_memo1(int idx, int total_weight)
+{
+	int &ret = DT[idx][total_weight];
+	if (ret != -1) return ret;
+
+	if (idx >= N) return ret = 0;
+	else if (total_weight + item_w[idx] > K)
+		return ret = recur_memo1(idx + 1, total_weight);
+
+	return ret = max(recur_memo1(idx+1, total_weight),
+		recur_memo1(idx + 1, total_weight + item_w[idx])+item_v[idx]);
+}
+
+// from r(max weight)..after selection, r - item_w[idx]
+static int
+recur_memo2(int idx, int r) 
+{
+	int &ret = DT[idx][r];
+	if (ret != -1) return ret;
+
+	if (idx >= N) return ret = 0;
+	else if (r < item_w[idx])
+		return ret = recur_memo2(idx + 1, r);
+
+	return ret = max(recur_memo2(idx + 1, r),
+		recur_memo2(idx + 1, r - item_w[idx]) + item_v[idx]);
 }
 
 int main()
 {
-	freopen("knapsack_items.txt", "r", stdin);
+	freopen("knapsack_problems.txt", "r", stdin);
 	setbuf(stdout, NULL);
 
 	int T, tc, i, j;
 	scanf("%d", &T);
 	for (tc = 1; tc <= T; tc++)
 	{
-		scanf("%d%d", &N, &W);
-		for (i = 1; i <= N; i++)
-			scanf("%d", &ITW[i]);
-		for (i = 1; i <= N; i++)
-			scanf("%d", &ITV[i]);
-		// initialize DT
+		// inputs:
+		scanf("%d%d", &N, &K);
+		for (i = 0; i < N; i++)
+			scanf("%d", &item_w[i]);
+		for (i = 0; i < N; i++)
+			scanf("%d", &item_v[i]);
+
+		// DT initializing...
+#if 0
 		for (i = 0; i < SZ_N; i++)
-			for (j = 0; j < 10 * SZ_N; j++)
-				DT[i][j] = -1;
+			for (j = 0; j < MAX_W; j++)
+				DT[i][j] = -1; 
+#else
+		for (i = 0; i < SZ_N*MAX_W; i++)
+			*((int*)DT + i) = -1;
+#endif
 
-		// get the max valures
-		unsigned max = 0;
+		// solve:
+		max_val = -1;
+#if 1
+		// recursion
+		recur_only(0, 0, 0);
+		printf("recur_only: max = %d\n", max_val);
+#else
+		// recursion with memo
+#if 0
+		// item basis: 0th item, 0th item's weight
+		max_val = recur_memo1(0, 0);
+		printf("recur_memo: max = %d\n", max_val);
+#else
+		// max weight basis: 0th item, max weight
+		max_val = recur_memo2(0, K);
+		printf("recur_memo: max = %d\n", max_val);
+#endif
 
-		max = packing(1, 0);
-		//max = packing2(1, W);
-
-		printf("#%d %d\n", tc, max);
-
-		clear_buf();			
+#endif
+		// clear buf
+		clear_buf();
 	}
 
 	return 0;
 }
-
