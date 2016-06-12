@@ -50,7 +50,7 @@ clear_buf()
 	}
 }
 
-static int
+static long long
 get_salary(int i)
 {
 	if (salaries[i] == 0)
