@@ -87,7 +87,7 @@ int main()
 		for (i = 0; i < N; i++)
 			total += get_salary(i);
 
-		printf("%d\n", total);
+		printf("%lld\n", total);
 
 		clear_buf();
 	}
