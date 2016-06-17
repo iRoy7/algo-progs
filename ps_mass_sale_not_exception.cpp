@@ -1,49 +1,75 @@
 #include <stdio.h>
-#define MAXIS 100000
-int T, N;
-long long int total_sum, max_discount;
-int data[MAXIS + 10];
-inline void qsort(int s, int e) {
+#define SZ_N 100001
+
+int N;
+int c[SZ_N]; // cost
+static void
+clear_buf()
+{
+	int i;
+	for (i = 0; i < SZ_N; i++)
+		c[i] = 0;
+}
+
+static void
+qsort(int s, int e)
+{
 	if (s >= e) return;
 	int l, r, p, tmp;
-	l = s - 1, r = e + 1, p = data[(s + e) / 2];
-	while (1) {
-		while (data[++l] > p);
-		while (data[--r] < p);
+	l = s - 1, r = e + 1, p = c[(s + e) / 2];
+	while (1)
+	{
+		while (c[++l] > p);
+		while (c[--r] < p);
 		if (l >= r) break;
-		tmp = data[l], data[l] = data[r], data[r] = tmp;
+		tmp = c[l], c[l] = c[r], c[r] = tmp;
 	}
 	qsort(s, l - 1);
 	qsort(r + 1, e);
 }
-inline long long int cal_discount()
+
+static long long 
+get_Discount()
 {
 	int i, j;
-	long long int ret = 0;
+	long long ret = 0;
 	int cnt = N / 3;
-	for (i = 1, j = 2; i <= cnt && j < N; i++, j += 3)
-		ret += data[j];
-	return ret;	
+	
+	for (i = 1, j = 2; (i <= cnt) && (j < N); i++, j += 3)
+		ret += c[j];
+	
+	return ret;
 }
+
 int main()
 {
-	int i, tc;
+	freopen("mass_sales.txt", "r", stdin);
 	setbuf(stdout, NULL);
+
+	int T, tc, i;
+	long long total_sum, max_discnt;
+
 	scanf("%d", &T);
-	for (tc = 1; tc <= T; tc++) {
-		// inputs:
+	for (tc = 1; tc <= T; tc++ )
+	{
 		scanf("%d", &N);
 		total_sum = 0;
-		for (i = 0; i < N; i++) {
-			scanf("%d", &data[i]);
-			total_sum += data[i];
+		for (i = 0; i < N; i++)
+		{
+			int x;
+			scanf("%d", &x);
+			c[i] = x;
+			total_sum += x;
 		}
-		// solve: 1. sorting..
+
 		qsort(0, N - 1);
-		// solve: 2. calculate max-discount 
-		max_discount = cal_discount();
-		// outputs:
-		printf("#%d %d\n", tc, total_sum - max_discount);
+
+		max_discnt = 0;
+		max_discnt = get_Discount();
+
+		//printf("%lld\n", max_discnt);
+		printf("%lld\n", total_sum - max_discnt);
 	}
+
 	return 0;
 }
