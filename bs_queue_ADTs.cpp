@@ -1,17 +1,20 @@
 #include <stdio.h>
-#define QSIZE 100
+#define QR 100
+
 struct Queue {
-	Queue(): head(0), tail(0) {}
+	int head, tail;
+	int containers[QR];
+	Queue(void): head(0), tail(0) {}
 	void init() { head = 0, tail = 0; }
 	bool isEmpty() { return head == tail; }
 	void push(int x) { containers[tail++] = x; }
 	int pop() { return (isEmpty())? -1: containers[head++]; }
 	int front() { return (isEmpty())? -1: containers[head]; }
 	int size() { return tail - head; }
-	int head, tail;
-	int containers[QSIZE];
 };
+
 struct Queue q;
+
 int main()
 {
 	q.init();
@@ -30,5 +33,6 @@ int main()
 		if (q.pop() == -1)
 			printf("Under flow~!\n");
 	printf("current queue size  -> %d\n", q.size());
+	
 	return 0;
 }
