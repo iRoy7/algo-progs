@@ -18,6 +18,8 @@ struct Stack st;
 int main() 
 {
     st.init();
+	
+	
 	printf("current stack size -> %d\n", st.size);
 	printf("is a stack empty?  -> %d\n", st.isEmpty());
 	st.push(1);
@@ -35,13 +37,14 @@ int main()
 	st.pop();
 	
 	if (st.pop() == -1)
-		printf("Underflow~!\n");
+	printf("Underflow~!\n");
 	
 	for (int i = 0; i <= 11; i++) {
-		st.push(i);
-		if (st.size > MAXIS)
-			printf("Overflow~!\n");
+	st.push(i);
+	if (st.size > MAXIS)
+		printf("Overflow~!\n");
 	}
 	
 	return 0;
+	
 }
