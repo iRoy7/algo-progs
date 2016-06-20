@@ -1,24 +1,33 @@
 #include <stdio.h>
 #define MAXIS 20
+
 int n, key;
 int a[MAXIS + 1];
-inline int seqsearch(int n, int x)
+
+static int 
+seqsearch(int n, int x)
 {
 	int location;
 	location = 1;
+
 	while (location <= n && a[location] != x)
 		location++;
+
 	if (location > n) location = 0;
 	return location;
 }
-inline int sum()
+
+static int 
+sum()
 {
 	int total = 0;
 	for (int i = 1; i <= n; i++)
 		total += a[i];
 	return total;
 }
-inline void qsort(int s, int e)
+
+static void 
+qsort(int s, int e)
 {
 	if (s >= e) return;
 	int l, r, p, tmp;
@@ -32,11 +41,14 @@ inline void qsort(int s, int e)
 	qsort(s, l - 1);
 	qsort(r + 1, e);
 }
-inline int binsearch(int n, int x)
+
+static int 
+binsearch(int n, int x)
 {
 	int location, low, high, mid;
 	low = 1, high = n;
 	location = 0;
+	
 	while (low <= high && location == 0) {
 		mid = (low + high) / 2;
 		if (x == a[mid])
@@ -46,9 +58,12 @@ inline int binsearch(int n, int x)
 		else
 			low = mid + 1;
 	}
+	
 	return location;
 }
-inline int location_recursion(int low, int high)
+
+static int 
+location_recursion(int low, int high)
 {
 	int mid;
 	if (low > high)
@@ -63,6 +78,7 @@ inline int location_recursion(int low, int high)
 			return location_recursion(mid + 1, high);
 	}
 }
+
 int main()
 {
 	freopen("basic_inputs.txt", "r", stdin);
@@ -71,6 +87,7 @@ int main()
 	scanf("%d %d", &n, &key);
 	for (int i = 1; i <= n; i++)
 		scanf("%d", &a[i]);
+		
 	printf("Input items:\n");
 	for (int i = 1; i <= n; i++)
 		printf("%d ", a[i]);
@@ -86,6 +103,7 @@ int main()
 
 	// solve: qsort
 	qsort(1, n);
+	
 	printf("Sorted items:\n");
 	for (int i = 1; i <= n; i++)
 		printf("%d ", a[i]);
@@ -98,5 +116,6 @@ int main()
 	// solve 4: find a key via binary search based on recursion
 	int ret4 = location_recursion(1, n);
 	printf("4.find a key = %d\n", ret4);
+	
 	return 0;
 }
