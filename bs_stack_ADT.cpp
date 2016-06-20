@@ -17,8 +17,7 @@ struct Stack st;
 
 int main() 
 {
-    st.init();
-	
+    st.init();	
 	
 	printf("current stack size -> %d\n", st.size);
 	printf("is a stack empty?  -> %d\n", st.isEmpty());
