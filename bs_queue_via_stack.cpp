@@ -1,20 +1,22 @@
 #include <stdio.h>
 #define S_MAXIS 1024
 #define Q_MAXIS 2048
+
 struct BasicStack {
 	int size;
 	int data[S_MAXIS];
-	BasicStack():size(0) {}
+	BasicStack(void):size(0) {}
 	void init() { size = 0; }
 	bool isEmpty() { return size == 0; }
 	void push(int x) { data[size++] = x; }
 	int pop() { return (isEmpty())? -1 : data[--size]; }
 	int top() { return (isEmpty())? -1 : data[size - 1]; }
 };
+
 struct BasicQueue {
 	int head, tail;
 	int containers[Q_MAXIS];
-	BasicQueue() : head(0), tail(0) {}
+	BasicQueue(void) : head(0), tail(0) {}
 	void init() { head = 0, tail = 0; }
 	bool isEmpty() { return head == tail; }
 	void push(int x) { containers[tail++] = x; }
@@ -22,7 +24,9 @@ struct BasicQueue {
 	int front() { return containers[head]; }
 	int size() { return tail - head; }
 };
+
 struct BasicQueue bq;
+
 struct myQueue {
 	struct BasicStack stNewest, stOldest;
 	myQueue() { stNewest.init(), stOldest.init(); }
@@ -36,12 +40,15 @@ struct myQueue {
 	int front() { shiftStacks(); return stOldest.top(); }
 	int remove() { shiftStacks(); return stOldest.pop(); }
 };
+
 struct myQueue myq;
-int T;
+
 int main()
 {
 	freopen("random_int_inputs.txt", "r", stdin);
 	setbuf(stdout, NULL);
+
+	int T;
 	scanf("%d", &T);
 	while (T--) {
 		int choice;
