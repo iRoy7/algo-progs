@@ -1,19 +1,23 @@
 #include <stdio.h>
 #define MAXIS 10
+
 struct Stack {
-	Stack() : size(0) {}
+	int size;
+	int data[MAXIS];
+	Stack(viod) : size(0) {}
 	void init() { size = 0; }
 	bool isEmpty() { return size == 0; }
 	void push(int x) { data[size++] = x; }
 	int pop() { return (isEmpty())? -1 : data[--size]; }
 	int top() { return (isEmpty())? -1 : data[size - 1]; }
-	int size;
-	int data[MAXIS];
+
 };
+
 struct Stack st;
+
 int main() 
 {
-  st.init();
+    st.init();
 	printf("current stack size -> %d\n", st.size);
 	printf("is a stack empty?  -> %d\n", st.isEmpty());
 	st.push(1);
@@ -29,12 +33,15 @@ int main()
 	printf("is a stack empty?  -> %d\n", st.isEmpty());
 	st.pop();
 	st.pop();
+	
 	if (st.pop() == -1)
 		printf("Underflow~!\n");
+	
 	for (int i = 0; i <= 11; i++) {
 		st.push(i);
 		if (st.size > MAXIS)
 			printf("Overflow~!\n");
-	}	
+	}
+	
 	return 0;
 }
