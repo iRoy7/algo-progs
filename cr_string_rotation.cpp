@@ -2,12 +2,22 @@
 
 #include <stdio.h>
 #define MAXIS 256
+
 char src[MAXIS + 1];
 char tar[MAXIS + 1];
 char concatSrc[2 * MAXIS + 1];
-int T;
-inline void clearMemory();
-int search2(const char *src, const char *tar, int src_len, int tar_len)
+
+static void 
+clearMemory()
+{
+	for (int i = 0; i < MAXIS + 1; i++)
+		src[i] = tar[i] = 0;
+	for (int j = 0; j < 2 * MAXIS + 1; j++)
+		concatSrc[j] = 0;
+}
+
+static int 
+search2(const char *src, const char *tar, int src_len, int tar_len)
 {
 	int flag;
 	int i, j;
@@ -24,7 +34,9 @@ int search2(const char *src, const char *tar, int src_len, int tar_len)
 	}
 	return flag;
 }
-bool isRotation(const char *src, const char *tar)
+
+static bool
+isRotation(const char *src, const char *tar)
 {
 	int i, j;
 	size_t len1, len2, len3;
@@ -45,11 +57,15 @@ bool isRotation(const char *src, const char *tar)
 	if (loc == 1) return true;
 	else return false;
 }
+
 int main()
 {
 	freopen("check_rotation_strings.txt", "r", stdin);
 	setbuf(stdout, NULL);
+	
+	int T;
 	scanf("%d", &T);
+	
 	while (T--) {
 		// inputs:
 		scanf("%s %s", src, tar);
@@ -62,12 +78,6 @@ int main()
 		// clear memory
 		clearMemory();
 	}
+	
 	return 0;
-}
-inline void clearMemory()
-{
-	for (int i = 0; i < MAXIS + 1; i++)
-		src[i] = tar[i] = 0;
-	for (int j = 0; j < 2 * MAXIS + 1; j++)
-		concatSrc[j] = 0;
 }
