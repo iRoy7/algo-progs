@@ -7,9 +7,28 @@
 #include <stdio.h>
 #define MAXIS 100
 int a[MAXIS + 1][MAXIS + 1];
-int T, N;
-inline void printMatrix();
-inline void clearMemory();
+int N;
+
+static void 
+clearMemory()
+{
+	int i, j;
+	for (i = 0; i < N; i++)
+		for (j = 0; j < N; j++)
+			a[i][j] = 0;
+}
+
+static void 
+printMatrix()
+{
+	int i, j;
+	for (i = 0; i < N; i++) {
+		for (j = 0; j < N; j++)
+			printf("%d ", a[i][j]);
+		printf("\n");
+	}
+}
+
 static void
 helperTranspose()
 {
@@ -21,6 +40,7 @@ helperTranspose()
 				tmp = a[i][j], a[i][j] = a[j][i], a[j][i] = tmp;
 			}
 }
+
 static void
 helperReverse(int *row)
 {
@@ -29,6 +49,7 @@ helperReverse(int *row)
 		tmp = row[i], row[i] = row[N - i - 1], row[N - i - 1] = tmp;
 	}
 }
+
 static void
 rotate1()
 {
@@ -38,6 +59,7 @@ rotate1()
 	for (int i = 0; i < N; i++)
 		helperReverse(a[i]);
 }
+
 static void
 rotate2()
 {
@@ -51,12 +73,14 @@ rotate2()
 			a[N - j - 1][i] = tmp;
 		}
 }
+
 int main()
 {
-	int i, j;
 	freopen("matrix_info.txt", "r", stdin);
 	setbuf(stdout, NULL);
+	int T, i, j;
 	scanf("%d", &T);
+	
 	while (T--) {
 		// inputs:
 		scanf("%d", &N);
@@ -75,19 +99,4 @@ int main()
 	}
 	return 0;
 }
-inline void printMatrix()
-{
-	int i, j;
-	for (i = 0; i < N; i++) {
-		for (j = 0; j < N; j++)
-			printf("%d ", a[i][j]);
-		printf("\n");
-	}
-}
-inline void clearMemory()
-{
-	int i, j;
-	for (i = 0; i < N; i++)
-		for (j = 0; j < N; j++)
-			a[i][j] = 0;
-}
+
