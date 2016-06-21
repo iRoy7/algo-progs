@@ -125,6 +125,7 @@ int main()
 
 	int T, tc, i;
 	scanf("%d", &T);
+	
 	for (tc = 1; tc <= T; tc++)
 	{
 		// intput
@@ -136,9 +137,12 @@ int main()
 		cnt = -1;
 		cnt = count_Paths();
 
+		// output
 		printf("%d\n", cnt);
 
 		// clear buf
 		clear_buf();
 	}
+	
+	return 0;
 }
