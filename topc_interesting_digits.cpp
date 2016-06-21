@@ -9,10 +9,10 @@
 
 int main()
 {
-	int T, base, n;
-	int k1, k2, k3;
-
 	setbuf(stdout, NULL);
+	
+	int k1, k2, k3;
+	int T, base, n;
 	scanf("%d", &T);
 
 	while (T--) 
