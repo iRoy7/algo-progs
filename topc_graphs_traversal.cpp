@@ -64,7 +64,7 @@ print_grp() {
 }
 
 static void 
-exp_dfs(int vt)
+traversal_DFS(int vt)
 {
 	if (vt == N)
 	{
@@ -91,7 +91,7 @@ exp_dfs(int vt)
 struct Queue {
 	int head, tail;
 	int containers[QR];
-	Queue() : head(0), tail(0) {}
+	Queue(void) : head(0), tail(0) {}
 	void init(){ head = 0, tail = 0; }
 	bool is_empty() { return head == tail; }
 	void enqueue(int x) { containers[tail++] = x; }
@@ -103,16 +103,18 @@ struct Queue {
 struct Queue q;
 
 static void 
-exp_bfs(int st)
+traversal_BFS(int st)
 {
-	visited[st] = true;
+	q.init();
 	q.enqueue(st);
+	visited[st] = true;
 
 	while (!q.is_empty())
 	{
 		int x = q.front();
 		printf("%d ", x);
 		q.dequeue();
+		
 		for (int i = 1; i <= N; i++)
 		{
 			if (!visited[i] && G[x][i])
@@ -135,6 +137,7 @@ int main()
 	scanf("%d", &T);
 
 	while (T--) {
+		// input
 		scanf("%d", &N);
 		// adj-matrix
 		for (i = 1; i <= N; i++)
@@ -146,15 +149,16 @@ int main()
 					G[i][j] = G[j][i] = x;
 			}
 
-		// explorers via DFS
-		exp_dfs(1);
+		// Traversal via DFS
+		traversal_DFS(1);
 		for (i = 1; i <= N; i++)
 			visited[i] = false;
 
 		// explorers via BFS
-		exp_bfs(1);
+		traversal_BFS(1);
 		printf("\n");
 		
+		// clean buffer
 		clear_buf();
 	}
 
