@@ -13,8 +13,27 @@
 #define MAXIS 100
 int T, N, M;
 int a[MAXIS + 1][MAXIS + 1];
-inline void printMatrix();
-inline void clearMemory();
+
+static void 
+clearMemory()
+{
+	int i, j;
+	for (i = 0; i < N; i++)
+		for (j = 0; j < M; j++)
+			a[i][j] = 0;
+}
+
+static void 
+printMatrix()
+{
+	int i, j; 
+	for (i = 0; i < N; i++) {
+		for (j = 0; j < M; j++)
+			printf("%d ", a[i][j]);
+		printf("\n");
+	}
+}
+
 static void 
 nullifyRow(int row)
 {
@@ -74,10 +93,12 @@ nullifyMatrix()
 
 int main()
 {
-	int i, j;
 	freopen("random_matrixes.txt", "r", stdin);
 	setbuf(stdout, NULL);
+	
+	int T, i, j;
 	scanf("%d", &T);
+	
 	while (T--) {
 		// inputs:
 		scanf("%d %d", &N, &M);
@@ -93,21 +114,6 @@ int main()
 		// clear memory:
 		clearMemory();
 	}
+	
 	return 0;
-}
-inline void printMatrix()
-{
-	int i, j; 
-	for (i = 0; i < N; i++) {
-		for (j = 0; j < M; j++)
-			printf("%d ", a[i][j]);
-		printf("\n");
-	}
-}
-inline void clearMemory()
-{
-	int i, j;
-	for (i = 0; i < N; i++)
-		for (j = 0; j < M; j++)
-			a[i][j] = 0;
 }
