@@ -77,18 +77,23 @@ int main()
 	
 	int T, tc, i;
 	scanf("%d", &T);
+	
 	for (tc = 1; tc <= T; tc++)
 	{
+		// input
 		scanf("%d", &N);
 		for (i = 0; i < N; i++)
 			scanf("%s", &rel[i]);
 
+		// solve
 		long long total = 0;
 		for (i = 0; i < N; i++)
 			total += get_salary(i);
 
+		// output
 		printf("%lld\n", total);
 
+		// clear buffer
 		clear_buf();
 	}
 
