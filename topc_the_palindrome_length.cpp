@@ -4,6 +4,14 @@
 #include <stdio.h>
 #define SZ_STR 110
 
+static void
+clear_buf(char *str)
+{
+    int i;
+	for (i = 0; i < SZ_STR; i++)
+		str[i] = 0;
+}
+
 static int
 find_palindr_length(char *str, int len)
 {
@@ -16,8 +24,8 @@ find_palindr_length(char *str, int len)
 	{
 		if (first && str[i] != str[bl])
 		{
-			bl -= 1;
-			i -= 1;
+			bl = bl - 1;
+			i = i - 1;
 			first = false;
 			continue;
 		}
@@ -28,26 +36,20 @@ find_palindr_length(char *str, int len)
 		}
 		else
 		{
-			bl -= 1;
+			bl = bl -1;
 		}
 	}
 
 	return p_len;
 }
 
-static void
-clear_buf(char *str)
-{
-	for (int i = 0; i < SZ_STR; i++)
-		str[i] = 0;
-}
-
 int main()
 {
-	int T;
-	static char INSTR[SZ_STR];
-
 	setbuf(stdout, NULL);
+	
+	static char INSTR[SZ_STR];
+	
+	int T;
 	scanf("%d", &T);
 
 	while (T--) {
@@ -67,5 +69,6 @@ int main()
 		// clear buffer
 		clear_buf(INSTR);
 	}
+
 	return 0;
 }
