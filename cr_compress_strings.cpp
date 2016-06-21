@@ -7,8 +7,16 @@
 char src[SZ_MEMORY];
 char out[SZ_MEMORY];
 
+static void
+clear_buf() 
+{
+	for (int i = 0; i < SZ_MEMORY; i++)
+		src[i] = out[i] = 0;
+}
+
 static bool
-compressed(const char *str) {
+compressed(const char *str)
+{
 	size_t i, j, src_len, out_len;
 
 	for (src_len = 0; str[src_len]; src_len++);
@@ -16,16 +24,22 @@ compressed(const char *str) {
 	if (src_len < 2) return false;
 
 	int cnt = 1, out_idx = 0;
-	for (i = 1; i < src_len; i++) {
+	for (i = 1; i < src_len; i++) 
+	{
 		if (str[i - 1] == str[i])
 			++cnt;
-		else {
+		else 
+		{
 			out[out_idx++] = str[i - 1];
+			
 			char s[5];
 			sprintf(s, "%d", cnt);
+			
 			size_t s_len;
 			for (s_len = 0; s[s_len]; s_len++);
-			for (j = 0; j < s_len; j++) {
+			
+			for (j = 0; j < s_len; j++) 
+			{
 				out[out_idx] = s[j];
 				out_idx++;
 			}
@@ -43,7 +57,8 @@ compressed(const char *str) {
 	size_t ss_len;
 	for (ss_len = 0; ss[ss_len]; ss_len++);
 
-	for (j = 0; j < ss_len; j++) {
+	for (j = 0; j < ss_len; j++) 
+	{
 		out[out_idx] = ss[j];
 		out_idx++;
 	}
@@ -55,13 +70,8 @@ compressed(const char *str) {
 	return true;
 }
 
-static void
-clear_memory() {
-	for (int i = 0; i < SZ_MEMORY; i++)
-		src[i] = out[i] = 0;
-}
-
-int main() {
+int main() 
+{
 	freopen("compress_strings.txt", "r", stdin);
 	setbuf(stdout, NULL);
 	
