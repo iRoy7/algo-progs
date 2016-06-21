@@ -11,7 +11,7 @@ struct Point {
 struct Queue {
 	int head, tail;
 	struct Point containers[QR];
-	Queue() : head(0), tail(0) {}
+	Queue(void) : head(0), tail(0) {}
 	void init() { head = 0, tail = 0; }
 	bool is_empty() { return head == tail; }
 	void enqueue(Point x) { containers[tail++] = x; }
@@ -39,18 +39,20 @@ is_safe(int y, int x)
 static int 
 bfs()
 {
-	// mark visited
-	visited[st.u][st.v] = 1;
-
 	q.init();
 	q.enqueue(st);
-	DEP[st.u][st.v] = 0; // depth of Maze
+
+	// mark visited
+	visited[st.u][st.v] = 1;
+	// depth of Maze
+	DEP[st.u][st.v] = 0;
 
 	while (!q.is_empty())
 	{
 		struct Point x = q.front();
+		if (x.u == end.u && x.v == end.v) 
+			break;
 		q.dequeue();
-		if (x.u == end.u && x.v == end.v) break;
 
 		for (int i = 0; i < 4; i++)
 		{
@@ -76,8 +78,10 @@ int main()
 	freopen("maze_map.txt", "r", stdin);
 	setbuf(stdout, NULL);
 
-	int i, j;
 	scanf("%d%d", &H, &W);
+	
+	int i, j;
+	// input
 	for (i = 0; i < H; i++)
 	{
 		scanf("%s", MAP[i]);
@@ -90,9 +94,11 @@ int main()
 		}
 	}
 
+	// solve
 	int depth = 0;
 	depth = bfs();
 
+	// output
 	printf("%d\n", depth);
 	
 	return 0;
