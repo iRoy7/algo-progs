@@ -32,11 +32,13 @@ char cards[16][5] = {
 static bool
 is_same(char *str, char *ans)
 {
-	for (int i = 0; i < 4; i++)
+	int i;
+	for (i = 0; i < 4; i++)
 	{
 		if (str[i] != ans[i])
 			return false;
 	}
+	
 	return true;
 }
 
@@ -45,8 +47,8 @@ int main()
 	freopen("magic_card_answers.txt", "r", stdin);
 	setbuf(stdout, NULL);
 	
-	int T, i;
 	static char answers[5];
+	int T, i;
 	scanf("%d", &T);
 
 	while (T--) {
@@ -58,6 +60,7 @@ int main()
 			if (is_same(cards[i], answers))
 				ans = i + 1;
 		}
+		
 		printf("%d\n", ans);
 
 		for (i = 0; i < 5; i++)
