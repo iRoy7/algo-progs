@@ -26,4 +26,6 @@ int main()
   printf("%d\n", cnt);
   
   memory_clear();
+  
+  return 0;
 }
