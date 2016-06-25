@@ -18,6 +18,7 @@ replace_Spaces(int length)
 	int i, new_len;
 	int space_cnt = 0;
 	
+	/* counting spaces in strings */
 	for (i = 0; i < length; i++)
 	{
 		if (in_str[i] == ' ')
@@ -55,6 +56,7 @@ int main()
 	for (tc = 1; tc <= T; tc++)
 	{
 		scanf(" %[^\n]\n", in_str);
+		/* get the string length including spaces */
 		scanf("%d", &len);
 
 		replace_Spaces(len);
