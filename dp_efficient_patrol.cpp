@@ -6,6 +6,7 @@ int col[SZ_N];
 
 int N, evnts;
 // Dynamic Table
+/* minimum length from here to another: DT[heare][another] */
 int DT[SZ_N][SZ_N];
 
 inline int
