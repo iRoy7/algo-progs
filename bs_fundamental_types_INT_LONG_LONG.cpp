@@ -35,6 +35,8 @@ int main()
 	printf("INTEGER:\n");
 	printf("========================================\n");
 
+	// INT_MAX = 2147483647
+	// INT_MAX = 0x7fffffff
 	int a = 2147483647;
 	unsigned int ua = 0xFFFFFFFFui32;
 	// signed
