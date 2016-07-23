@@ -292,7 +292,7 @@ check_n_move(int y, int x)
 }
 
 static void
-robot_move_foward(int x)
+rt_move_foward(int x)
 {
 	if (x != 1)
 	{
@@ -329,7 +329,6 @@ update_direction(int x)
 
 int main()
 {
-	freopen("robot_cleaner.txt", "r", stdin);
 	setbuf(stdout, NULL);
 
 	int T, tc, i;
@@ -362,7 +361,7 @@ int main()
 			}
 			else
 			{
-				robot_move_foward(x);
+				rt_move_foward(x);
 			}
 		}
 
