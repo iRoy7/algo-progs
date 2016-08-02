@@ -1,19 +1,19 @@
 #include <stdio.h>
-#define SZ_N 101
+#define SZN 101
 
 struct Wire { int a, b; };
-struct Wire w[SZ_N];
+struct Wire w[SZN];
 int N;
 
 // Dynamic Table
 // 0, 1, 2 번째까지의 LIS의 길이
-int DT[SZ_N];
+int DT[SZN];
 
 static void
 clear_buf()
 {
 	int i;
-	for (i = 0; i < SZ_N; i++)
+	for (i = 0; i < SZN; i++)
 		w[i].a = w[i].b = DT[i] = 0;
 }
 
@@ -39,21 +39,22 @@ qsort(int s, int e)
 
 int main()
 {
-	freopen("linked_wires.txt", "r", stdin);
 	setbuf(stdout, NULL);
 
-	int T, tc, i, j, max_so_far;
+	int T, tc, i, j;
+
 	scanf("%d", &T);
 
 	for (tc = 1; tc <= T; tc++)
 	{
 		scanf("%d", &N);
+
 		for (i = 0; i < N; i++)
 			scanf("%d%d", &w[i].a, &w[i].b);
 
 		qsort(0, N - 1);
 		
-		max_so_far = 0;
+		int max_so_far = 0;
 		for (i = 0; i < N; i++)
 		{
 			DT[i] = 1;
