@@ -1,28 +1,21 @@
 #include <stdio.h>
 #define SZ_N 100001
 
+int C[SZ_N];
 int N;
-int c[SZ_N]; // cost
-static void
-clear_buf()
-{
-	int i;
-	for (i = 0; i < SZ_N; i++)
-		c[i] = 0;
-}
 
 static void
 qsort(int s, int e)
 {
 	if (s >= e) return;
 	int l, r, p, tmp;
-	l = s - 1, r = e + 1, p = c[(s + e) / 2];
+	l = s - 1, r = e + 1, p = C[(s + e) / 2];
 	while (1)
 	{
-		while (c[++l] > p);
-		while (c[--r] < p);
+		while (C[++l] > p);
+		while (C[--r] < p);
 		if (l >= r) break;
-		tmp = c[l], c[l] = c[r], c[r] = tmp;
+		tmp = C[l], C[l] = C[r], C[r] = tmp;
 	}
 	qsort(s, l - 1);
 	qsort(r + 1, e);
@@ -36,30 +29,30 @@ get_Discount()
 	int cnt = N / 3;
 	
 	for (i = 1, j = 2; (i <= cnt) && (j < N); i++, j += 3)
-		ret += c[j];
+		ret += C[j];
 	
 	return ret;
 }
 
 int main()
 {
-	freopen("mass_sales.txt", "r", stdin);
 	setbuf(stdout, NULL);
 
 	int T, tc, i;
 	long long total_sum, max_discnt;
 
 	scanf("%d", &T);
+
 	for (tc = 1; tc <= T; tc++ )
 	{
 		scanf("%d", &N);
+
 		total_sum = 0;
 		for (i = 0; i < N; i++)
 		{
-			int x;
-			scanf("%d", &x);
-			c[i] = x;
-			total_sum += x;
+		  C[i] = 0;
+			scanf("%d", &C[i]);
+			total_sum += C[i];
 		}
 
 		qsort(0, N - 1);
