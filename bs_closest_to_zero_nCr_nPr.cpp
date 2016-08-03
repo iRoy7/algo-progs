@@ -1,13 +1,11 @@
 #include <stdio.h>
 #define INT_MAX 2147483647
+#define ABS(a) (((a) < (0))?-(a):(a))
 
 int arr[7] = { 1, 60, -10, 70, -80, 85 };
 int trr[7] = { 0, };
 int mA, mB;
 int close_zero_val;
-
-inline int 
-ABS(int a) { return (a > 0) ? a : (-a); }
 
 static void
 recurr_Permu(int n, int r)
@@ -60,11 +58,10 @@ recurr_Combi(int n, int r)
 int main()
 {
 	mA = INT_MAX;
-	mA = INT_MAX;
+	mB = INT_MAX;
 	close_zero_val = INT_MAX;
 
 	recurr_Permu(6, 2);
-
 	recurr_Combi(6, 2);
 
 	printf("%d %d\n", mA, mB, close_zero_val);
