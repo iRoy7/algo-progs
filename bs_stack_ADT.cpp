@@ -11,12 +11,37 @@ struct Stack {
 	int pop() { return (isEmpty())? -1 : data[--size]; }
 	int top() { return (isEmpty())? -1 : data[size - 1]; }
 
-};
+} st;
 
-struct Stack st;
+int stack[100]
+int top = -1;
+void push(int item) {
+    if (top >= 99) return;
+    else stack[++top] = item;
+}
+
+int pop() {
+    if (top == -1) {
+        printf("Stack is Empty!\n");
+        return 0;
+    }
+    else 
+    {
+        return stack[top--];
+    }
+}
 
 int main() 
 {
+    int item;
+    push(1);
+    push(2);
+    push(3);
+    item = pop();
+    printf("pop item = (%d)\n", item);
+    
+    printf("=====================================\n");
+    
     st.init();	
 	
 	printf("current stack size -> %d\n", st.size);
