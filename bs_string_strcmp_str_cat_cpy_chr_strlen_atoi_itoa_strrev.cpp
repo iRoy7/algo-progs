@@ -69,27 +69,40 @@ void my_itoa(int n, char *str)
    my_strrev(str);
 }
 
+bool is_pallindrome(char *str, int len)
+{
+      int i;
+      int to = len/2;
+      for (i = 0; i < to; i++)
+      {
+	      if (str[i] != str[len-1-i])
+	      {
+		      return false;
+	      }
+      }
+
+      return true;
+}
 
 void main()
 {
-	char s1[80], s2[80];
+   char s1[80], s2[80];
 
-	gets_s(s1);
-	gets_s(s2);
+   gets_s(s1);
+   gets_s(s2);
 
-	printf("Lengths : %d %d\n", strlen(s1), strlen(s2));
+   printf("Lengths : %d %d\n", strlen(s1), strlen(s2));
 
-	if (!strcmp(s1, s2)) printf("The strings are equal.\n");
+   if (!strcmp(s1, s2)) printf("The strings are equal.\n");
 
-	strcat(s1, s2);
-	printf("%s\n", s1);
+   strcat(s1, s2);
+   printf("%s\n", s1);
 
-	strcpy(s1, "This is a test.\n");
-	printf(s1);
+   strcpy(s1, "This is a test.\n");
+   printf(s1);
 
-	if (strchr("hello", 'e')) printf("e is in hello.\n");
-	if (strstr("hi there", "hi")) printf("found hi.\n");
-
+   if (strchr("hello", 'e')) printf("e is in hello.\n");
+   if (strstr("hi there", "hi")) printf("found hi.\n");
 
    // String -> Number
    char ss[SZS];
