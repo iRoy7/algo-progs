@@ -137,6 +137,40 @@ void combi(int n, int r)
 // POWER SET::
 // 2^n (= 1 << n)
 
+int arr8[SZN] = { -5, -4, -3, -2, -1, 1, 2, 3, 4, 5 };
+int trr8[SZN];
+
+void PwrSet_ZeroSum()
+{
+    int i, j, k, h;
+	int n = sizeof(arr8) / sizeof(int);
+
+	for (i = 0; i < (1 << n); i++)
+	{
+		int zero_sum = 0;
+		int subset_cnt = 0;
+
+		for (j = 0; j < n; j++)
+		{
+			if (i & (1 << j))
+			{
+				zero_sum += arr8[j];
+				trr9[subset_cnt++] = arr8[j];
+			}
+		}
+
+		if (zero_sum == 0 && subset_cnt > 0)
+		{
+			for (k = 0; k < subset_cnt; k++)
+				printf("%d ", trr8[k]);
+			printf("\n");
+		}
+
+		for (h = 0; h < SZN; h++)
+			trr8[h] = 0;
+	}
+}
+
 int data[4] = { 1, 2, 3, 4 };
 int flag[4] = { 0, 0, 0, 0 };
 
@@ -224,5 +258,8 @@ int main()
 	}
 
 #endif
+
+    PwrSet_ZeroSum();
+    
 	return 0;
 }
