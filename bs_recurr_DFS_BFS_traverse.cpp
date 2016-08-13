@@ -72,15 +72,8 @@ void BFS(int n)
 	}
 }
 
-void DFS(int n)
+void recur_DFS(int n)
 {
-	// base case
-	if (n == N)
-	{
-		printf("%d ", n);
-		return;
-	}
-
 	// general case
 	printf("%d ", n);
 	V[n] = 1;
@@ -92,7 +85,7 @@ void DFS(int n)
 		if (!V[i] && G[n][i])
 		{
 			V[i] = 1;
-			DFS(i);
+			recur_DFS(i);
 		}
 	}
 }
@@ -114,7 +107,7 @@ int main()
 		G[u][v] = G[v][u] = 1;
 	}
 
-	DFS(1);
+	recur_DFS(1);
 	printf("\n");
 
 	//BFS(1);
