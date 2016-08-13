@@ -57,9 +57,9 @@ void BFS(int n)
 	{
 		int x = q[++head];
 
+		/* do something with x */
 		printf("%d ", x);
 
-		/* do something with x */
 		int i;
 		for (i = 1; i <= N; i++)
 		{
