@@ -1,15 +1,16 @@
 /*
+5 4
 1 2
 2 3
 2 4
 3 5
-       (1)
-       /   
-     (2) 
-     /  \ 
-    (3)  (4)
-   /
-(5)
+          (1)
+		  /   
+        (2) 
+		/  \     
+	  (3)  (4)  
+	  /
+    (5)
 
 OUTPUT
 DFS
@@ -17,103 +18,102 @@ DFS
 BFS
 1->2->3->4->5
 */
-
 #include <stdio.h>
 #define SZN 51
 #define QR 102
 
 int G[SZN][SZN];
 int V[SZN];
+int visited[SZN];
 int N, M;
+
 ////////////////////////////////
 // Queue
-int q[QR];
+int Q[QR];
 int head, tail;
-void q_init() 
+void init() 
 { 
 	head = -1, tail = -1; 
 	int i;
-	for (i = 0; i < QR; i++) q[i] = 0;
+	for (i = 0; i < QR; i++) 
+		Q[i] = 0;
+	for (i = 0; i < SZN; i++)
+		V[i] = 0;
 }
 ////////////////////////////////
-void Clean()
+// Iterative
+void BFS(int s)
 {
-	int i;
+	init();
 
-	for (i = 0; i < (SZN*SZN); i++)
-	{
-		*((int *)G + i) = 0;
-	}
-}
-
-void BFS(int n)
-{
-	q_init();
-
-	V[n] = 1;
-	q[++tail] = n;
+	Q[++tail] = s;
+	V[s] = 1;
 
 	while (tail != head)
 	{
-		int x = q[++head];
+		int cur = Q[++head];
 
-		/* do something with x */
-		printf("%d ", x);
-
-		int i;
-		for (i = 1; i <= N; i++)
+		/* do something with cur */
+		printf("%d ", cur);
+		if (cur == N)
 		{
-			if (!V[i] && G[x][i])
+			printf("\n - Reach to the last node\n");
+		}
+
+		int w;
+		for (w = 1; w <= N; w++)
+		{
+			if (!V[w] && G[cur][w])
 			{
-				V[i] = 1;
-				q[++tail] = i;
+				Q[++tail] = w;
+				V[w] = 1;
 			}
 		}
 	}
 }
-
-void recur_DFS(int n)
+////////////////////////////////
+// Recursive
+void DFS(int u)
 {
 	// general case
-	printf("%d ", n);
-	V[n] = 1;
+	printf("%d ", u);
+	visited[u] = 1;
 
-	int i;
-
-	for (i = 1; i <= N; i++)
+	int v;
+	for (v = 1; v <= N; v++)
 	{
-		if (!V[i] && G[n][i])
+		if (!visited[v] && G[u][v])
 		{
-			V[i] = 1;
-			recur_DFS(i);
+			visited[v] = 1;
+			DFS(v);
 		}
 	}
 }
 
 int main()
 {
-	freopen("graph_info.txt", "r", stdin); 
-	setbuf(stdout, NULL);
-
 	scanf("%d %d", &N, &M);
 
 	int i, j;
-	
 	for (i = 0; i < M; i++)
 	{
-		V[i] = 0;
 		int u, v;
 		scanf("%d %d", &u, &v);
 		G[u][v] = G[v][u] = 1;
 	}
 
-	recur_DFS(1);
+    for (j = 0; j < N; j++)
+    {
+        visited[j] = 0;
+    }
+    
+	printf("[DFS]: Recursive\n");
+	DFS(1);
+	printf("\n\n");
+
+	printf("[BFS]: Iterative\n");
+	BFS(1);
 	printf("\n");
-
-	//BFS(1);
-	//printf("\n");
-
-	Clean();
 
 	return 0;
 }
