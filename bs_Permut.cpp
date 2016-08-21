@@ -13,7 +13,7 @@ void Permut(int k, int q)
 {
 	if (k == q)
 	{
-		for (int i = 0; i < k; i++)
+		for (int i = 0; i < q; i++)
 			printf("%d ", arr[Sel[i]-1]);
 			//printf("%d ", Sel[i]);
 		printf("\n");
@@ -40,7 +40,7 @@ void Permut2(int k, int q)
 {
 	if (k == q)
 	{
-		for (int i = 0; i < k; i++)
+		for (int i = 0; i < q; i++)
 			printf("%d ", arr[Sel[i] - 1]);
 		printf("\n");
 
