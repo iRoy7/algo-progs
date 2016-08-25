@@ -26,8 +26,7 @@ void recurr_DFS(int u)
 	printf("%d ", u);
 	visited[u] = 1;
 
-	int v;
-	for (v = 1; v <= N; v++)
+	for (int v = 1; v <= N; v++)
 	{
 		if (!visited[v] && G[u][v])
 		{
@@ -45,8 +44,7 @@ int V[SZN];
 void init()
 {
 	top = -1;
-	int i;
-	for (i = 0; i < SZN; i++)
+	for (int i = 0; i < SZN; i++)
 		stack[i] = V[i] = 0;
 }
 
@@ -57,19 +55,18 @@ void iterr_DFS(int s)
 
 	while (top != (-1))
 	{
-		int x = stack[top--];
+		int cur = stack[top--];
 		
-		if (V[x]) continue;
+		if (V[cur]) continue;
 		
-		V[x] = 1;
+		V[cur] = 1;
 		
-		// do something with x
-		printf("%d ", x);
+		// do something with cur 
+		printf("%d ", cur);
 
-		int w;
-		for (w = 1; w <= N; w++)
+		for (int w = 1; w <= N; w++)
 		{
-			if (!V[w] && G[x][w])
+			if (!V[w] && G[cur][w])
 				stack[++top] = w;
 		}
 	}
@@ -81,9 +78,7 @@ int main()
 	
 	scanf("%d %d", &N, &M);
 
-	int i;
-
-	for (i = 0; i < M; i++)
+	for (int i = 0; i < M; i++)
 	{
 		int u, v;
 		scanf("%d %d", &u, &v);
