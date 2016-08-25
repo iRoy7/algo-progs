@@ -1,18 +1,19 @@
 /*
+INPUT:
 5 4
 1 2
 2 3
 2 4
 3 5
     (1)
-    /   
-   (2) 
-  /  \     
- (3)  (4)  
+    /
+   (2)
+   /  \
+ (3)  (4)
  /
 (5)
 
-OUTPUT
+OUTPUT:
 DFS
 1->2->3->5->4
 BFS
@@ -31,17 +32,17 @@ int N, M;
 // Queue
 int Q[QR];
 int head, tail;
-void init() 
-{ 
-	head = -1, tail = -1; 
+void init()
+{
+	head = -1, tail = -1;
 	int i;
-	for (i = 0; i < QR; i++) 
+	for (i = 0; i < QR; i++)
 		Q[i] = 0;
 	for (i = 0; i < SZN; i++)
 		V[i] = 0;
 }
 ////////////////////////////////
-// Iterative
+// BFS: Iterative
 void BFS(int s)
 {
 	init();
@@ -55,13 +56,13 @@ void BFS(int s)
 
 		/* do something with cur */
 		printf("%d ", cur);
+
 		if (cur == N)
 		{
 			printf("\n - Reach to the last node\n");
 		}
 
-		int w;
-		for (w = 1; w <= N; w++)
+		for (int w = 1; w <= N; w++)
 		{
 			if (!V[w] && G[cur][w])
 			{
@@ -72,17 +73,16 @@ void BFS(int s)
 	}
 }
 ////////////////////////////////
-// Recursive
+// DFS: Recursive
 void DFS(int u)
 {
-	// general case
 	printf("%d ", u);
 	visited[u] = 1;
 
-	int v;
-	for (v = 1; v <= N; v++)
+	for (int v = 1; v <= N; v++)
 	{
-		if (!visited[v] && G[u][v])
+		if (visited[v] == 0
+			&& G[u][v])
 		{
 			visited[v] = 1;
 			DFS(v);
@@ -94,7 +94,7 @@ int main()
 {
 	scanf("%d %d", &N, &M);
 
-	int i, j;
+	int i;
 	for (i = 0; i < M; i++)
 	{
 		int u, v;
@@ -102,11 +102,11 @@ int main()
 		G[u][v] = G[v][u] = 1;
 	}
 
-    for (j = 0; j < N; j++)
-    {
-        visited[j] = 0;
-    }
-    
+	for (i = 0; i < N; i++)
+	{
+		visited[i] = 0;
+	}
+
 	printf("[DFS]: Recursive\n");
 	DFS(1);
 	printf("\n\n");
