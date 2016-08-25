@@ -5,7 +5,10 @@
 int Src[SZN] = { 3, 6, 9 };
 int Sel[SZN];
 int V[SZN];
-
+/////////////////////////////////////////////////////////////////
+// PERMUTATION::
+// nPn = n!
+// nPr = n x (n-1) x ... x (n - r + 1)
 /* Permutation */
 /* Lexicographic order */
 // 3P3: Permut(0);
