@@ -2,10 +2,10 @@
 #define NMAX 5
 #define CMAX 4
 
-int arr[NMAX] = { 1, 2, 3, 4 };
-
+int Src[NMAX] = { 1, 3, 6, 9 };
 int trr[10];
 int recurr_cnt;
+
 void print_trr(int q)
 {
 	while (q)
@@ -15,7 +15,8 @@ void print_trr(int q)
 	printf("\n");
 }
 
-void recurr_Permu(int n, int r, int q)
+/* Anti-Lexicographic Order */
+void recurr_Permut(int n, int r, int q)
 {
 	// base cases:
 	if (r == 0)
@@ -25,14 +26,16 @@ void recurr_Permu(int n, int r, int q)
 	}
 	else
 	{
-		int i, tmp;
-		for (i = n - 1; i >= 0; i--)
+		int tmp;
+		for (int i = n - 1; i >= 0; i--)
 		{
-			tmp = arr[i], arr[i] = arr[n - 1], arr[n - 1] = tmp;
-			trr[r - 1] = arr[n - 1];
-			recurr_Permu(n - 1, r - 1, q);
+			tmp = Src[i], Src[i] = Src[n - 1], Src[n - 1] = tmp;
+			
+			trr[r - 1] = Src[n - 1];
+			recurr_Permut(n - 1, r - 1, q);
+
 			/* Restore previous data @.@ */
-			tmp = arr[i], arr[i] = arr[n - 1], arr[n - 1] = tmp;
+			tmp = Src[i], Src[i] = Src[n - 1], Src[n - 1] = tmp;
 		}
 	}
 }
@@ -42,23 +45,21 @@ int cnt;
 
 void print_process_solution(int a[], int k)
 {
-	int i;
-	for (i = 1; i <= k; i++)
-		printf("%d ", a[i]);
+	for (int i = 1; i <= k; i++)
+		printf("%d ", Src[a[i]-1]);
 	printf("\n");
 }
 
-void BT(int a[], int k, int input)
+/* Lexicographic Order */
+void BACKTRACKING(int a[], int k, int r, int input)
 {
 	sys_st_cnt++;
+
 	int c[CMAX] = { 0, };
 	int nCands = 0;
 	int inPerm[NMAX] = { 0, };
-	int i;
 
-	/* nPr = 4P3: k == input - 1*/
-	/* nPn = 4P4: k == input */
-	if (k == input - 2)
+	if (k == r)
 	{
 		cnt++;
 		print_process_solution(a, k);
@@ -68,7 +69,9 @@ void BT(int a[], int k, int input)
 	else
 	{
 		k++;
-		/*construct candidates*/
+
+		int i;
+		/* construct candidates */
 		for (i = 0; i < k; i++)
 			inPerm[a[i]] = 1;
 
@@ -81,7 +84,7 @@ void BT(int a[], int k, int input)
 		for (i = 0; i < nCands; i++)
 		{
 			a[k] = c[i];
-			BT(a, k, input);
+			BACKTRACKING(a, k, r, input);
 		}
 	}
 	sys_st_cnt--;
@@ -91,15 +94,17 @@ int main()
 {
 	// Permutation
 	/* Recursive Permutation */
+	/* Anti-Lexicographic Order */
 	recurr_cnt = 0;
-	recurr_Permu(4, 2, 2);
+	recurr_Permut(4, 3, 3);
 	printf("nPr = 4P3 = 4*3*2 = %d\n", recurr_cnt);
 
-	/* Backtracking */
+	/* BACKTRACKING */
+	/* Lexicographic Order */
 	int a[CMAX + 1] = { 0, };
 	cnt = 0;
 	sys_st_cnt = 0;
-	BT(a, 0, 4);
+	BACKTRACKING(a, 0, 3, 4);
 	printf("nPr = %d\n", cnt);
 
 	return 0;
