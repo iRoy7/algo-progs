@@ -2,19 +2,20 @@
 #define SZN 5
 #define NMAX 4
 
-int arr[4] = { 1, 2, 3, 4 };
+int Src[SZN] = { 1, 2, 3, 4 };
 int Sel[SZN];
 
 /* Combination */
-// 4C3:	Combi(0, 0, 3);
+/* Lexicographic order */
+// 4C3:	Combi_Set_L(0, 0, 3);
 // s: 0->1->2->3
-// k: 1->2->3
-void Combi(int s, int k, int q)
+// k: 0->1->2
+void Combi_Set_L(int s, int k, int q)
 {
 	if (k == q)
 	{
 		for (int i = 0; i < q; i++)
-			printf("%d ", arr[Sel[i]]);
+			printf("%d ", Src[Sel[i]]);
 		printf("\n");
 
 		return;
@@ -24,16 +25,18 @@ void Combi(int s, int k, int q)
 	for (i = s; i < NMAX; i++)
 	{
 		Sel[k] = i;
-		Combi(i + 1, k + 1, q);
+		Combi_Set_L(i + 1, k + 1, q);
 	}
 }
 
-void Combi2(int s, int k, int q)
+/* Combination with Repetition */
+/* Lexicographic order */
+void CombiR_Set_L(int s, int k, int q)
 {
 	if (k == q)
 	{
 		for (int i = 0; i < q; i++)
-			printf("%d ", arr[Sel[i]]);
+			printf("%d ", Src[Sel[i]]);
 		printf("\n");
 
 		return;
@@ -43,10 +46,12 @@ void Combi2(int s, int k, int q)
 	for (i = s; i < NMAX; i++)
 	{
 		Sel[k] = i;
-		Combi2(i, k + 1, q);
+		CombiR_Set_L(i, k + 1, q); /* 중복조합은 i가 증가하지 않음 */
 	}
 }
 
+/* Combination */
+/* Anti-Lexicographic order */
 // 4C3: Combi3(4, 3, 3);
 // n: 4->3->2->1
 // r: 3->2->1
@@ -57,7 +62,7 @@ void print_trr(int q)
 	printf("{ %d %d %d }\n", trr[0], trr[1], trr[2]);
 }
 
-void Combi3(int n, int r, int q)
+void Combi_Set_AL(int n, int r, int q)
 {
 	if (r == 0)
 	{
@@ -70,24 +75,31 @@ void Combi3(int n, int r, int q)
 	}
 	else
 	{
-		trr[r - 1] = arr[n - 1];
-		Combi3(n - 1, r - 1, q);
-		Combi3(n - 1, r, q);
+		trr[r - 1] = Src[n - 1]; /* 뒤에서부터 선택 */
+		Combi_Set_AL(n - 1, r - 1, q);
+		Combi_Set_AL(n - 1, r, q);
 	}
 }
 
 int main()
 {
-	printf("(1) Combi:\n");
-	Combi(0, 0, 3);
+	printf("Source Array: \n [ %d | %d | %d | %d ] \n", Src[0], Src[1], Src[2], Src[3]);
 
-	printf("(2) Dupl-Combi:\n");
-	/* 중복 조합 */
-	Combi2(0, 0, 4);
+	/* Combination */
+	/* Lexicographic order */
+	printf("(1) L order Combination (4C3):\n");
+	Combi_Set_L(0, 0, 3);
 
-	printf("(3) Another-Combi: \n");
-	/* Another Combi */
-	Combi3(4, 3, 3);
+	for (int i = 0; i < SZN; i++) Sel[i] = 0;
+
+	/* Combination with Repetition */
+	/* Lexicographic order */
+	printf("(2) L order Combination R (4C3):\n");
+	CombiR_Set_L(0, 0, 3);
+
+	/* 역순 출력*/
+	printf("(3) Anti-L order Combination (4C3): \n");
+	Combi_Set_AL(4, 3, 3);
 	
 	return 0;
 }
