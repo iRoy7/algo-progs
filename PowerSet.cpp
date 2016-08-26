@@ -8,7 +8,8 @@
 // 2^n (= 1 << n)
 int data[4] = { 1, 2, 3, 4 };
 int flag[4] = { 0, 0, 0, 0 };
-
+/* Recursive */
+/* {1234} ....{....} */
 void recurr_PwrSet(int n, int depth)
 {
 	if (n == depth)
@@ -30,9 +31,10 @@ void recurr_PwrSet(int n, int depth)
 }
 
 
-int Src[SZN] = { -5, -4, -3, -2, -1, 1, 2, 3, 4, 5 };
+int Src[] = { -5, -4, -3, -2, -1, 1, 2, 3, 4, 5 };
 int trr[SZN];
-
+/* Iterative */
+/* {....} ... {1234} */
 void PwrSet_ZeroSum()
 {
 	int i, j, k, h;
