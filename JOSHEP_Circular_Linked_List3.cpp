@@ -1,7 +1,8 @@
+#include "stdafx.h"
 #include <stdio.h>
 #include <stdlib.h>
 
-typedef struct _node 
+typedef struct _node
 {
 	int key;
 	struct _node *next;
@@ -37,10 +38,17 @@ void delete_after(node *t)
 void josephus(int n, int m)
 {
 	insert_nodes(n);
-	
-	node *t;
-	t = head;
+
 	printf("\nAnswer : ");
+
+	node *s, *t;
+	s = head;
+	for (int i = 0; i < n-1; i++)
+		s = s->next;
+	t = s;
+	printf("%d ", t->next->key);
+	delete_after(t);
+
 	while (t != t->next)
 	{
 		for (int i = 0; i < m - 1; i++)
@@ -51,7 +59,7 @@ void josephus(int n, int m)
 	printf("%d", t->key);
 }
 
-void main(void)
+void circular_linked_list(void)
 {
 	int n, m;
 	printf("\nIf you want to quit, enter 0 or minus value");
