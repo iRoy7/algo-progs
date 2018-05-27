@@ -12,7 +12,7 @@ void my_strcpy(char *src, char *dest)
    *dest = '\0';
 }
 
-void my_strcmp(char *str1, char str2)
+int my_strcmp(char *str1, char *str2)
 {
    int i = 0;
    while (str1[i] != '\0') {
@@ -20,6 +20,14 @@ void my_strcmp(char *str1, char str2)
       i++;
    }
    return (str1[i] - str2[i]);
+}
+
+int my_strncmp(char *tar, char *src, int slen)
+{
+    for (; slen--; ++src, ++tar)
+        if (*src != *tar)
+            return *src - *tar;
+    return 0;
 }
 
 int my_atoi(char *str)
